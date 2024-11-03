@@ -1,0 +1,19 @@
+meta {
+  name: Invite through email
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/project/invite
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "role_id" : 2,
+    "project_id" : "01J8333H67BJF31EZF6G37VB6W",
+    "email" : "abhishekbhat.dev@gmail.com"
+  }
+}

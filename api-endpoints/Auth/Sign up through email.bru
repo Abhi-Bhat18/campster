@@ -1,0 +1,24 @@
+meta {
+  name: Sign up through email
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/auth/sign-up?inviteToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0SWQiOiIwMUo4MzMzSDY3QkpGMzFFWkY2RzM3VkI2VyIsInJvbGVJZCI6MiwiZW1haWwiOiJhYmhpc2hla2JoYXQuZGV2QGdtYWlsLmNvbSIsImlhdCI6MTcyNjY4MTAzNSwiZXhwIjoxNzI3Mjg1ODM1fQ.DJhK1qvlYOsJK9ukPFaBaniv7sdW5KWTyoXzZt6hL0w
+  body: json
+  auth: none
+}
+
+params:query {
+  inviteToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0SWQiOiIwMUo4MzMzSDY3QkpGMzFFWkY2RzM3VkI2VyIsInJvbGVJZCI6MiwiZW1haWwiOiJhYmhpc2hla2JoYXQuZGV2QGdtYWlsLmNvbSIsImlhdCI6MTcyNjY4MTAzNSwiZXhwIjoxNzI3Mjg1ODM1fQ.DJhK1qvlYOsJK9ukPFaBaniv7sdW5KWTyoXzZt6hL0w
+}
+
+body:json {
+  {
+    "first_name" : "Abhishek",
+    "last_name" : "Bhat",
+    "email" : "abhishekbhat.dev@gmail.com",
+    "password" : "Abhi@196927"
+  }
+}

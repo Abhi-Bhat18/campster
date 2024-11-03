@@ -1,0 +1,27 @@
+meta {
+  name: Send Transactional emails
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/transactionals
+  body: json
+  auth: none
+}
+
+headers {
+  x-api-key: a2b6ec13705abac9a0eb9fae5527d3d8a14dffcd79494fba2b5996accbb32800
+}
+
+body:json {
+  {
+    "from_email": "mail@abhishekbhat.com",
+    "to_email" : "abhishekbhat.dev@gmail.com",
+    "subject" : "Transaction mail test",
+    "text" : "Preview content text",
+    "event_name" : "Transactions",
+    "content_text" : "Preview Text",
+    "content_html" : "<h1> This is the heading </h1>"
+  }
+}

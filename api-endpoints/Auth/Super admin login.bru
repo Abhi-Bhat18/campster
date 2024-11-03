@@ -1,0 +1,18 @@
+meta {
+  name: Super admin login
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/auth/sign-in
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+  "email" : "abhishekbhat.dev@gmail.com",
+  "password" : "Abhishek"
+  }
+}

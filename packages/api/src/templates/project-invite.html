@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+  <head></head>
+  <body>
+    <div
+      style='background-color:#f0e3e3;color:#262626;font-family:"Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;font-size:16px;font-weight:400;letter-spacing:0.15008px;line-height:1.5;margin:0;padding:32px 0;min-height:100%;width:100%'
+    >
+      <table
+        align="center"
+        width="100%"
+        style="margin:0 auto;max-width:600px;background-color:#FFFFFF"
+        role="presentation"
+        cellspacing="0"
+        cellpadding="0"
+        border="0"
+      >
+        <tbody>
+          <tr style="width:100%">
+            <td>
+              <h2
+                style='font-weight:bold;margin:0;font-family:Avenir, "Avenir Next LT Pro", Montserrat, Corbel, "URW Gothic", source-sans-pro, sans-serif;font-size:24px;padding:16px 24px 16px 24px'
+              >
+                Welcome to {{ project_name }}
+              </h2>
+              <div style="font-weight:bold;padding:16px 24px 16px 24px">
+                Hello {{ email }}
+              </div>
+              <div style="font-weight:normal;padding:16px 24px 16px 24px">
+                <p>
+                  We’re excited to let you know that you’ve been invited to
+                  collaborate on the {{project_name }}.
+                </p>
+                <p>
+                  Role Assigned: {{ role_name }}<br />To get started, simply
+                  click the link below to accept the invitation and join the
+                  project.
+                </p>
+              </div>
+              <div style="padding:16px 24px 16px 24px">
+                <a
+                  href="{{ invite_link }}"
+                  style="color:#FFFFFF;font-size:16px;font-weight:bold;background-color:#999999;border-radius:4px;display:inline-block;padding:12px 20px;text-decoration:none"
+                  target="_blank"
+                  ><span
+                    ><!--[if mso
+                      ]><i
+                        style="letter-spacing: 20px;mso-font-width:-100%;mso-text-raise:30"
+                        hidden
+                        >&nbsp;</i
+                      ><!
+                    [endif]--></span
+                  ><span>Accept Invitation</span
+                  ><span
+                    ><!--[if mso
+                      ]><i
+                        style="letter-spacing: 20px;mso-font-width:-100%"
+                        hidden
+                        >&nbsp;</i
+                      ><!
+                    [endif]--></span
+                  ></a
+                >
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

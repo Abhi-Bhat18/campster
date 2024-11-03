@@ -1,0 +1,15 @@
+{
+  "name": "ses",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": "true",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": { 
+    "dev:api" : "cd ./packages/api && yarn start:dev",
+    "dev:client" : "cd ./packages/client && yarn dev"
+  },
+  "dependencies": {}
+}

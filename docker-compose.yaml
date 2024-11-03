@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  mailman-ui:
+    image: abhishekbhat18/mailman-ui:latest
+    ports:
+      - '3000:3000'
+    environment:
+      NEXT_PUBLIC_API_URL: http://api-server:1335
+    networks:
+      - mailman-network
+
+  mailman-api:
+    image: abhishekbhat18/mailman-api:latest
+    container_name: mailman-api
+    ports:
+      - '1335:1335'
+    env_file:
+      - ./packages/api/.env
+    restart: unless-stopped
+    networks:
+      - mailman-network
+
+networks:
+  mailman-network:
+    driver: bridge

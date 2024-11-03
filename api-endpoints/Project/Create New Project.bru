@@ -1,0 +1,18 @@
+meta {
+  name: Create New Project
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/project
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Logwiz",
+    "description" : "Frontend logging library"
+  }
+}

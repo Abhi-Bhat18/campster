@@ -1,0 +1,18 @@
+meta {
+  name: Normal User login
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/auth/sign-in
+  body: json
+  auth: none
+}
+
+body:json {
+  { 
+  "email" : "abhishekbhat.dev@gmail.com",
+   "password" : "Abhi@196927"
+  }
+}
