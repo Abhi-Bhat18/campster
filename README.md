@@ -13,4 +13,6 @@
 - **Real-Time Analytics**: Access live metrics on email performance, engagement, and campaign effectiveness.
 - **A/B Testing**: Run tests on different email versions to maximize impact with your audience.
 
+#### You can find the installation docs [here](http://bhat-abhishek.github.io/campster-docs/)
+
 
