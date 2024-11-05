@@ -31,6 +31,7 @@ const Contacts = () => {
   const { contacts } = useAppSelector((state) => state.contactList);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [archiveOpen, setArchiveOpen] = useState(false);
 
   const { data, isLoading, error } = useGetContactsQuery({
     project_id,
@@ -60,7 +61,7 @@ const Contacts = () => {
         <p className="text-2xl">Contacts</p>
         <div className="flex items-center space-x-5">
           {selectedRows.length > 0 && (
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <Dialog open={archiveOpen} onOpenChange={setArchiveOpen}>
               <DialogTrigger>
                 <div>
                   <Trash className="h-4 w-4" />
@@ -74,7 +75,12 @@ const Contacts = () => {
                 </DialogTitle>
                 <DialogHeader>
                   <div className="flex justify-end">
-                    <Button onClick={handleRemoveClick} className="w-fit">
+                    <Button
+                      variant={"destructive"}
+                      disabled={isLoading}
+                      onClick={handleRemoveClick}
+                      className="w-fit"
+                    >
                       Remove
                     </Button>
                   </div>

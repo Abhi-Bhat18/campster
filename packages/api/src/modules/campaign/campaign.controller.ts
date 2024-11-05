@@ -88,11 +88,4 @@ export class CampaignController {
   async sendTestCampaignEmail(@Body() body: SendTestEmailDto) {
     return await this.campaignService.sendTestCampaignEmail(body);
   }
-
-  @Delete('')
-  async deleteCampaigns() {
-    const emails = await this.emailService.deleteEmails();
-    const campaigns = await this.campaignService.deleteCampaigns();
-    return { emails, campaigns };
-  }
 }

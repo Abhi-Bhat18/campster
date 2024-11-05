@@ -19,7 +19,7 @@ type MailOptions = {
   subject: string;
   text: string;
   html: string;
-  list?:  Record<string, string>;
+  list?: Record<string, string>;
 };
 
 @Injectable()
@@ -88,8 +88,6 @@ export class EmailService implements OnModuleInit {
         },
       };
     }
-    console.log('Mail options', mailOptions);
-
     const info = await this.transporter.sendMail(mailOptions);
     return info;
   };
@@ -104,12 +102,15 @@ export class EmailService implements OnModuleInit {
       secret: this.configService.get('JWT_SECRET'),
     });
 
-    const { campaign_id } = verifiedToken;
+    const { campaign_id, project_id } = verifiedToken;
 
-    this.db
+    console.log('Verified Token', verifiedToken);
+
+    await this.db
       .insertInto('email_views')
       .values({
         campaign_id: campaign_id,
+        project_id: project_id,
         opened_at: new Date().toISOString(),
       })
       .executeTakeFirst();
@@ -133,6 +134,7 @@ export class EmailService implements OnModuleInit {
       .insertInto('email_clicks')
       .values({
         campaign_id: verifiedToken.campaign_id,
+        project_id: verifiedToken.project_id,
       })
       .execute();
 

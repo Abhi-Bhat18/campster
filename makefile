@@ -16,7 +16,7 @@ build-api:
 	cd $(API_DIR) && yarn build
 
 docker-build-api:
-	cd $(API_DIR) && docker build -t mailman .
+	cd $(API_DIR) && docker build --platform linux/amd64 --progress=plain -t abhishekbhat18/campster-api .
 
 .PHONY: migrate
 migrate:

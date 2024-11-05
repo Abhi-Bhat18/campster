@@ -1,6 +1,6 @@
-# Mailman
+# Campster
 
-**Mailman** is a self-hostable, open-source email marketing tool designed to empower cross-functional teams—designers, developers, and marketers—by centralizing essential email campaign tools and workflows. Built for collaboration and efficiency, it enables teams to stay aligned and manage campaigns under one cohesive system.
+**Campster** is a self-hostable, open-source email marketing tool designed to empower cross-functional teams—designers, developers, and marketers—by centralizing essential email campaign tools and workflows. Built for collaboration and efficiency, it enables teams to stay aligned and manage campaigns under one cohesive system.
 
 ## Features
 
@@ -13,20 +13,4 @@
 - **Real-Time Analytics**: Access live metrics on email performance, engagement, and campaign effectiveness.
 - **A/B Testing**: Run tests on different email versions to maximize impact with your audience.
 
-## Getting Started
 
-These steps will help you get **Mailman** up and running on your environment.
-
-### Prerequisites
-
-- **Node.js**: Required to run the application.
-- **Database**: PostgreSQL required for data storage.
-
-### Installation
-
-1. **Clone the Repository**
-
-   ```bash
-   git clone https://github.com/Abhi-Bhat18/.git
-   cd Mailman
-   ```

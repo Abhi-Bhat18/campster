@@ -26,6 +26,7 @@ interface IBatchCampaign {
   mail_from: string;
   html: string;
   contact_list_id: string;
+  project_id: string;
 }
 
 @Injectable()
@@ -161,6 +162,7 @@ export class CampaignService implements OnModuleInit {
         'campaigns.mail_from',
         'campaigns.subject',
         'email_templates.html',
+        'campaigns.project_id',
       ])
       .where('campaigns.status', '=', 'scheduled')
       .where('campaigns.scheduled_at', '<=', new Date())
@@ -245,7 +247,11 @@ export class CampaignService implements OnModuleInit {
     return contacts;
   }
 
-  private processEmailTemplate(template: string, campaign_id: string) {
+  private processEmailTemplate(
+    template: string,
+    campaign_id: string,
+    project_id: string,
+  ) {
     const $ = cheerio.load(template);
 
     // Process all links in the template
@@ -256,22 +262,28 @@ export class CampaignService implements OnModuleInit {
       if (originalUrl && !originalUrl.startsWith('mailto:')) {
         const trackingUrl = this.createClickTrackingUrl(
           campaign_id,
+          project_id,
           originalUrl,
         );
         link.attr('href', trackingUrl);
       }
     });
 
-    const trackingPixel = this.createViewTrackingPixel(campaign_id);
+    const trackingPixel = this.createViewTrackingPixel(campaign_id, project_id);
     $('body').append(trackingPixel);
 
     return $.html();
   }
 
-  private createClickTrackingUrl(campaign_id: string, originalURL: string) {
+  private createClickTrackingUrl(
+    campaign_id: string,
+    project_id: string,
+    originalURL: string,
+  ) {
     const token = this.jwtService.sign(
       {
         campaign_id: campaign_id,
+        project_id,
         originalURL: originalURL,
       },
       {
@@ -282,9 +294,9 @@ export class CampaignService implements OnModuleInit {
     return `${this.configService.get('API_HOST')}/email/click?token=${token}`;
   }
 
-  private createViewTrackingPixel(campaign_id: string) {
+  private createViewTrackingPixel(campaign_id: string, project_id: string) {
     const token = this.jwtService.sign(
-      { campaign_id },
+      { campaign_id, project_id },
       {
         secret: this.configService.get('JWT_SECRET'),
       },
@@ -303,6 +315,7 @@ export class CampaignService implements OnModuleInit {
     const processedTemplate = this.processEmailTemplate(
       campaign.html,
       campaign.id,
+      campaign.project_id,
     );
 
     const results = await Promise.allSettled(
@@ -348,7 +361,6 @@ export class CampaignService implements OnModuleInit {
       campaign.id,
       contact.contact_id,
     );
-    console.log('Unsubscribe URL', unsubscribe_url);
 
     return this.emailService.sendEmail(
       contact.email,
@@ -356,7 +368,7 @@ export class CampaignService implements OnModuleInit {
       '',
       processedTemplate,
       campaign.mail_from,
-      unsubscribe_url
+      unsubscribe_url,
     );
   }
 

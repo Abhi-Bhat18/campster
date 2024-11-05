@@ -21,20 +21,19 @@ const csvWriter = createObjectCsvWriter({
 const generateContactData = () => ({
   first_name: faker.person.firstName(),
   last_name: faker.person.lastName(),
-  email: faker.internet.email(),
-  contact: faker.person.fullName + '@mailinator.com',
+  email: faker.person.firstName().toLocaleLowerCase() +'@mailinator.com',
+  contact: faker.phone.number(),
   attributes: JSON.stringify({
     interests: faker.word.noun(),
     notes: faker.lorem.sentence(),
-  }), 
+  }),
   opt_in: faker.datatype.boolean(),
   unsubscribed: faker.datatype.boolean(),
   updated_at: faker.date.recent().toISOString(),
   created_at: faker.date.past().toISOString(),
 });
 
-// Generate 200 rows of data
-const contacts = Array.from({ length: 100 }, generateContactData);
+const contacts = Array.from({ length: 10 }, generateContactData);
 
 // Write the data to CSV file
 csvWriter

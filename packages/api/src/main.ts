@@ -3,13 +3,18 @@ import { AppModule } from './app.module';
 import helmet from 'helmet';
 import { ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.select(ConfigModule).get(ConfigService);
+
+  const origins = configService.get<string>('CORS_DOMAINS').split(',');
+  console.log('ORIGINS', origins);
   app.use(helmet());
   app.enableCors({
     credentials: true,
-    origin: ['http://localhost:3000', 'http://192.168.1.8:3000'],
+    origin: origins,
   });
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());

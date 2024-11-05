@@ -9,8 +9,8 @@ import AuthenticatedLayout from "@/layouts/AuthenticatedLayout";
 const openSans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Mail man",
-  description: "Mail main is a marketing tool",
+  title: "Campster",
+  description: "Campster is an open source marketing campaigning tool built for cross functional teams",
 };
 
 export default function RootLayout({

@@ -4,6 +4,7 @@ import SignInForm from "../../../components/sign-in/SignInForm";
 import Link from "next/link";
 import { useAppSelector } from "@/lib/hook";
 import { useRouter } from "next/navigation";
+import { itim } from "@/utils/config";
 
 const Signin = () => {
   const { isLoggedIn, permissions } = useAppSelector((state) => state.auth);
@@ -22,14 +23,16 @@ const Signin = () => {
 
   return (
     <main className="flex h-screen">
-      <div className="basis-1/2 bg-background flex justify-center items-center">
-        <Link href={"/"}>Mailman</Link>
+      <div className="basis-1/2 bg-background relative">
+        <p className={`${itim.className} text-3xl absolute top-20 left-20`}>
+          <Link href={"/"}>Campster</Link>
+        </p>
       </div>
       <div className="basis-1/2 flex justify-center items-center">
         <div className="shadow-md border-secondary border p-10 rounded-md space-y-5">
           <div className="space-y-2">
             <p className="text-2xl">Login to your account</p>
-            <p className="">Welcome back to Mailman</p>
+            <p className="">Welcome back to Campster</p>
           </div>
           <SignInForm />
           <div className="flex justify-between text-sm">

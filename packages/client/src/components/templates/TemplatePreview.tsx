@@ -19,11 +19,10 @@ const TemplatePreview: React.FC<Props> = ({ template_id }) => {
     template_id,
     project_id,
   });
-  console.log("Data", data);
 
   if (isLoading) return <> Loading... </>;
   return (
-    <div>
+    <div className="max-h-[90vh] overflow-y-scroll">
       <Reader document={document} rootBlockId="root" />
     </div>
   );

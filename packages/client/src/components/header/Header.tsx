@@ -1,46 +1,53 @@
 import React from "react";
 import Link from "next/link";
-import {
-  Home,
-  LineChart,
-  Menu,
-  Package,
-  Package2,
-  ShoppingCart,
-  Users,
-} from "lucide-react";
+import { Menu } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
+
+import SidebarLink from "../sidebar/SidebarLink";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import ProjectComboBox from "./ProjectComboBox";
-
-const projects = [
-  {
-    value: "mailman",
-    label: "Mail man",
-  },
-];
-
+import { useAppSelector } from "@/lib/hook";
+import { Building2, LogOut } from "lucide-react";
+import { itim } from "@/utils/config";
+import { sidebarDownNavigations, sidebarNavigations } from "@/utils/config";
+import { useRouter } from "next/navigation";
+import { useLogoutMutation } from "@/lib/features/auth/authApis";
+import { toast } from "sonner";
 const Header = () => {
-  const logOut = () => {};
+  const project_name = useAppSelector(
+    (state) => state.auth.defaultProject?.project_name
+  );
+
+  const [logout, { isError, isLoading }] = useLogoutMutation();
+  const router = useRouter();
+
+  const { permissions } = useAppSelector((state) => state.auth);
+
+  const filteredSidebarNavs = sidebarNavigations.filter((nav) => {
+    return nav.feature in permissions;
+  });
+
+  const handleLogout = async () => {
+    try {
+      const result = await logout(undefined).unwrap();
+      if (result) {
+        toast.success("Logged out successfully");
+        router.push("/sign-in");
+      }
+    } catch (error) {
+      console.log("error", error);
+      toast.error("Something went wrong");
+    }
+  };
 
   return (
     <header className="flex h-14 items-center gap-4 border-b-background bg-muted/40 px-4 lg:h-[60px] lg:px-6 sticky top-0 z-50">
@@ -57,69 +64,53 @@ const Header = () => {
               href="#"
               className="flex items-center gap-2 text-lg font-semibold"
             >
-              <Package2 className="h-6 w-6" />
-              <span className="sr-only">Acme Inc</span>
+              <span className={`${itim.className} sr-only`}>Campster</span>
             </Link>
-            <Link
-              href="#"
-              className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-            >
-              <Home className="h-5 w-5" />
-              Dashboard
-            </Link>
-            <Link
-              href="#"
-              className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
-            >
-              <ShoppingCart className="h-5 w-5" />
-              Orders
-              <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                6
-              </Badge>
-            </Link>
-            <Link
-              href="#"
-              className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-            >
-              <Package className="h-5 w-5" />
-              Products
-            </Link>
-            <Link
-              href="#"
-              className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-            >
-              <Users className="h-5 w-5" />
-              Customers
-            </Link>
-            <Link
-              href="#"
-              className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-            >
-              <LineChart className="h-5 w-5" />
-              Analytics
-            </Link>
+            {filteredSidebarNavs.map((item, index) => {
+              return (
+                <SidebarLink
+                  name={item.name}
+                  link={item.link}
+                  Icon={item.Icon}
+                  key={index}
+                />
+              );
+            })}
           </nav>
           <div className="mt-auto">
-            <Card>
-              <CardHeader>
-                <CardTitle>Upgrade to Pro</CardTitle>
-                <CardDescription>
-                  Unlock all features and get unlimited access to our support
-                  team.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button size="sm" className="w-full">
-                  Upgrade
-                </Button>
-              </CardContent>
-            </Card>
+            {sidebarDownNavigations.map((item, index) => {
+              return (
+                <SidebarLink
+                  link={item.link}
+                  Icon={item.Icon}
+                  name={item.name}
+                  key={index}
+                />
+              );
+            })}
+            <Dialog>
+              <DialogTrigger>
+                <div className="w-full flex justify-start space-x-2 text-muted-foreground hover:text-primary px-3 py-2 items-center">
+                  <LogOut className="h-4 w-4" />
+                  <span>Logout</span>
+                </div>
+              </DialogTrigger>
+              <DialogContent className="border-secondary">
+                <DialogHeader>
+                  <DialogTitle>Are you absolutely sure?</DialogTitle>
+                  <DialogDescription className="flex justify-end">
+                    <Button onClick={handleLogout}>Logout</Button>
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
           </div>
         </SheetContent>
       </Sheet>
       <div className="w-full flex justify-end items-center">
-        <div> 
-          <ProjectComboBox items={projects} />
+        <div className="flex space-x-2 items-center">
+          <p>{project_name}</p>
+          <Building2 className="h-5 w-5" />
         </div>
         {/* <div className="flex">
           <DropdownMenu>

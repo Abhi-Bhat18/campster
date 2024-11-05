@@ -8,8 +8,9 @@ import { GeistSans } from "geist/font/sans";
 import AuthCheckLayout from "@/layouts/AuthCheckLayout";
 
 export const metadata: Metadata = {
-  title: "Mail man",
-  description: "Mail main is a marketing tool",
+  title: "Campster",
+  description:
+    "Campster is an open source marketing campaigning tool built for cross functional teams",
 };
 
 export default function RootLayout({

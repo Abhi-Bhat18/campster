@@ -25,8 +25,6 @@ WORKDIR /usr/src/app
 # Copy only the necessary files from the builder stage
 COPY --from=builder /usr/src/app/package*.json ./
 COPY --from=builder /usr/src/app/dist ./dist
-COPY --from=builder /usr/src/app/.env .env
-COPY --from=builder /usr/src/app/.env.development .env.development
 
 # Install only production dependencies
 RUN yarn install --frozen-lockfile --production

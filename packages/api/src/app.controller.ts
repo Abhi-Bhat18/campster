@@ -10,10 +10,4 @@ export class AppController {
   healthCheck(): string {
     return this.appService.healthCheck();
   }
-
-  // @Get('api-key')
-  // generateAPIKey() {
-  //   const apiKey = randomBytes(32).toString('hex');
-  //   return apiKey;
-  // }
 }

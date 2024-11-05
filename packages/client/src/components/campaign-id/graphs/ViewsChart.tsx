@@ -39,6 +39,8 @@ const ViewsChart = () => {
   const id = pathName.split("/").at(-1)
   const { data } = useGetTimeSeriesDataQuery(id!);
 
+  console.log("Data", data);
+
   return (
     <Card className="border-none bg-card">
       <CardHeader>
@@ -60,13 +62,11 @@ const ViewsChart = () => {
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="day"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
             />
             <YAxis
-              domain={[0, "auto"]} // Ensure the Y-axis starts at 0
+              domain={[0, "auto"]} 
+              type="number"
               tickLine={false}
               axisLine={false}
             />

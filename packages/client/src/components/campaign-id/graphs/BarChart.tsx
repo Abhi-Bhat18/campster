@@ -46,7 +46,7 @@ export function CampaignBarChart() {
   const { campaign } = useAppSelector((state) => state.campaign);
 
   console.log(campaign);
-  
+
   let total_clicks,
     total_bounces,
     total_deliveried,
@@ -56,7 +56,7 @@ export function CampaignBarChart() {
     total_clicks = campaign.total_clicks;
     total_bounces = campaign.total_bounces;
     total_deliveried = campaign.total_delivered;
-    total_opens = campaign.total_delivered;
+    total_opens = campaign.total_opens;
   }
 
   const chartData = [

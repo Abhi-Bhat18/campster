@@ -83,7 +83,7 @@ export class ContactListService implements OnModuleInit {
         ({ ref }) =>
           sql<boolean>`lower(${ref('name')}) like lower(${searchPattern})`,
       )
-      .where('status','=','active')
+      .where('status', '=', 'active')
       .select(['id', 'name'])
       .execute();
   }

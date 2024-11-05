@@ -1,4 +1,10 @@
 import { HomeIcon, ReaderIcon } from "@radix-ui/react-icons";
+import { Itim } from "next/font/google";
+
+export const itim = Itim({ 
+  weight : [ '400'],
+  subsets : [ 'latin','latin-ext']
+});
 
 import {
   Home,

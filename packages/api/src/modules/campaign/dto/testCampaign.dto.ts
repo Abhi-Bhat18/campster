@@ -3,10 +3,10 @@ import {
   IsEmail,
   IsString,
   MinLength,
-  IsDate,
   ValidateIf,
   IsArray,
   ArrayNotEmpty,
+  IsDateString,
 } from 'class-validator';
 
 export class SendTestEmailDto {
@@ -18,7 +18,7 @@ export class SendTestEmailDto {
   @MinLength(2)
   subject: string;
 
-  @IsEmail()
+  @IsString()
   mail_from: string;
 
   @IsString()
@@ -38,7 +38,7 @@ export class SendTestEmailDto {
 
   // Make scheduled_date required if send_later is true
   @ValidateIf((o) => o.send_later === true)
-  @IsDate()
+  @IsDateString()
   scheduled_at?: Date;
 
   // Validate emails as a non-empty array of valid email addresses
